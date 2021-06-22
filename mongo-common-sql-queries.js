@@ -46,5 +46,24 @@ db.collection.update(
     { multi: true }
   )
 
+//Obtener en minutos la resta de dos fechas por medio de un aggragate
+db.collection.aggregate([
+    {
+        "$match":
+        {
+            "_fielName.subFieldName" : {$exists : false}
+        }
+    },
+    {
+     "$project":
+     {
+         "total" : { $divide: [ { $subtract: [ "dateCloseExample", "$fechaApertura" ] },60]},
+         "dateOpenExample" : 1,
+         "dateCloseExample": 1,
+         "ticksExample": 1
+     }   
+    }
+])
+
 
 
